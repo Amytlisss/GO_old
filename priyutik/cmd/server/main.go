@@ -2,10 +2,8 @@ package main
 
 import (
 	"log"
-
-	"github.com/Amytlisss/GO_old/priyutik/internal/config"
-
-	"github.com/Amytlisss/GO_old/priyutik/internal/app"
+	"priyutik/internal/app"
+	"priyutik/internal/config"
 )
 
 func main() {

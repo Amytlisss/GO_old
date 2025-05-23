@@ -2,9 +2,8 @@ package repository
 
 import (
 	"database/sql"
+	"priyutik/internal/models"
 	"time"
-
-	"github.com/Amytlisss/GO_old/priyutik/internal/models"
 )
 
 type MeetingRepo struct {

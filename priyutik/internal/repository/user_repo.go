@@ -2,8 +2,7 @@ package repository
 
 import (
 	"database/sql"
-
-	"github.com/Amytlisss/GO_old/priyutik/internal/models"
+	"priyutik/internal/models"
 )
 
 type UserRepo struct {

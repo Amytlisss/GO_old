@@ -4,10 +4,9 @@ import (
 	"database/sql"
 	"log"
 	"net/http"
-
-	"github.com/Amytlisss/GO_old/priyutik/internal/config"
-	"github.com/Amytlisss/GO_old/priyutik/internal/handlers"
-	"github.com/Amytlisss/GO_old/priyutik/internal/repository"
+	"priyutik/internal/config"
+	"priyutik/internal/handlers"
+	"priyutik/internal/repository"
 
 	"github.com/gorilla/sessions"
 )
