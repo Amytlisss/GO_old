@@ -114,49 +114,32 @@
         <p style="font-size:20px;"x>Наш приют был основан в 2017 году с целью спасения бездомных животных и поиска для них новых любящих хозяев. Мы предоставляем нашим подопечным медицинское обслуживание, питание и заботу до тех пор, пока они не найдут свой новый дом.</p>
       </div>
     </section>
-
-    
-    <section id="animals">
-      <div class="container py-4">
+    <!-- В разделе "Наши животные" -->
+<section id="animals" class="py-4">
+    <div class="container">
         <h2>Наши животные</h2>
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-          <div class="col">
-            <div class="card h-100">
-              <img src="https://sun9-26.userapi.com/impg/nK8KI6AXRRp2NzvhB_GaJC4UCykH_0RewaH57A/X9_wK77mv3E.jpg?size=713x950&quality=95&sign=89ead400f85d3f0217b14c3e906b4c17&type=album" class="card-img-top" alt="Собака">
-              <div class="card-body">
-                <h5 class="card-title">Барбос</h5>
-                <p class="card-text">Возраст: 2 года</p>
-                <p class="card-text">Порода: Метис</p>
-                <a href="#" class="btn btn-primary">Узнать больше</a>
-              </div>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {{range .Animals}}
+            <div class="col">
+                <div class="card h-100">
+                    <img src="{{.ImageURL}}" class="card-img-top" alt="{{.Name}}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{.Name}}</h5>
+                        <p class="card-text">Порода: {{.Breed}}</p>
+                        <p class="card-text">Возраст: {{.Age}} года/лет</p>
+                        <p class="card-text">{{.Description}}</p>
+                        {{if .Available}}
+                            <span class="badge bg-success">Ищет дом</span>
+                        {{else}}
+                            <span class="badge bg-secondary">Уже нашёл дом</span>
+                        {{end}}
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="col">
-            <div class="card h-100">
-              <img src="https://sun9-39.userapi.com/s/v1/ig2/chNk_e52bDfk-9JFlj95SebMTzBPItB6ACx3Om2_WYOV9SxiThPmwmswUhPTT9cCDVJz5_wl66Np0rV321PZE0N1.jpg?quality=95&as=32x43,48x64,72x96,108x144,160x213,240x320,360x480,480x640,540x720,640x853,720x959,836x1114&from=bu&u=7UzvHWWNOU79RY4ePzkjTtrI4e0eb0ms9_FCYtzNbkk&cs=836x1114" class="card-img-top" alt="Собака">
-              <div class="card-body">
-                <h5 class="card-title">Мышка</h5>
-                <p class="card-text">Возраст: 5 месяцев</p>
-                <p class="card-text">Порода: Западно-сибирская Лайка</p>
-                <a href="#" class="btn btn-primary">Узнать больше</a>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-            <div class="card h-100">
-              <img src="https://sun9-75.userapi.com/s/v1/ig2/YcXvPLCxfWDZB5ialC9v3TTwrVRjwpHBT5l9catcLSGh9owwQv795C7JCKG1DJpOeLjKjfwFz2Ymx670x4rbBCKX.jpg?quality=95&as=32x43,48x64,72x96,108x144,160x213,240x320,360x480,480x640,540x720,639x852&from=bu&u=GvLVq9I3qm9xxdZcEJOZ-DY7m0hOii5fHoyiKqS7_es&cs=639x852" class="card-img-top" alt="Кошка">
-              <div class="card-body">
-                <h5 class="card-title">Пушок</h5>
-                <p class="card-text">Возраст: 6 месяцев</p>
-                <p class="card-text">Порода: Длинношёрстная</p>
-                <a href="#" class="btn btn-primary">Узнать больше</a>
-              </div>
-            </div>
-          </div>
+            {{end}}
         </div>
-      </div>
-    </section>
-
+    </div>
+</section>
     <section id="donate">
       <div class="container py-4">
         <h2>Как помочь</h2>

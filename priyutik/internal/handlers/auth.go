@@ -109,7 +109,6 @@ func (h *Handlers) Logout(w http.ResponseWriter, r *http.Request) {
 	session.Save(r, w)
 	http.Redirect(w, r, "/", http.StatusFound)
 }
-
 func (h *Handlers) HomePage(w http.ResponseWriter, r *http.Request) {
 	session, _ := h.store.Get(r, "session-name")
 	user, ok := session.Values["user"].(models.User)

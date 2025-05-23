@@ -151,6 +151,40 @@ func (h *Handlers) CreateAnimal(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func (h *Handlers) AddAnimal(w http.ResponseWriter, r *http.Request) {
+	user, _ := h.GetUserFromSession(w, r)
+
+	if r.Method == http.MethodPost {
+		r.ParseForm()
+		age, _ := strconv.Atoi(r.FormValue("age"))
+		available := r.FormValue("available") == "on"
+
+		animal := models.Animal{
+			Name:        r.FormValue("name"),
+			Type:        r.FormValue("type"),
+			Breed:       r.FormValue("breed"),
+			Age:         age,
+			Description: r.FormValue("description"),
+			ImageURL:    r.FormValue("image_url"),
+			Available:   available,
+		}
+
+		if err := h.repo.CreateAnimal(&animal); err != nil {
+			h.ErrorResponse(w, "Ошибка при добавлении животного", http.StatusInternalServerError)
+			return
+		}
+
+		http.Redirect(w, r, "/admin", http.StatusSeeOther)
+		return
+	}
+
+	h.RenderTemplate(w, "add_animal.html", struct {
+		User models.User
+	}{
+		User: user,
+	})
+}
+
 func (h *Handlers) DeleteAnimal(w http.ResponseWriter, r *http.Request) {
 	_, ok := h.GetUserFromSession(w, r)
 	if !ok {
