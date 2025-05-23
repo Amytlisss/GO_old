@@ -9,6 +9,7 @@ import (
 	"priyutik/internal/repository"
 
 	"github.com/gorilla/sessions"
+	_ "github.com/lib/pq"
 )
 
 type Application struct {
@@ -18,12 +19,12 @@ type Application struct {
 	Handlers *handlers.Handlers
 }
 
+var db *sql.DB
+
 func New(cfg *config.Config) (*Application, error) {
-	db, err := sql.Open("postgres",
-		"user="+cfg.DB.User+" "+
-			"password="+cfg.DB.Password+" "+
-			"dbname="+cfg.DB.Name+" "+
-			"sslmode="+cfg.DB.SSLMode)
+	var err error
+	connStr := "user=postgres password=0000 dbname=priyutik sslmode=disable"
+	db, err = sql.Open("postgres", connStr)
 	if err != nil {
 		return nil, err
 	}
