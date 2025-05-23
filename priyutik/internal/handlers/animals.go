@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/Amytlisss/GO_old/priyutik/internal/models"
+	"priyutik/internal/models"
 )
 
 func (h *Handlers) AnimalsPage(w http.ResponseWriter, r *http.Request) {

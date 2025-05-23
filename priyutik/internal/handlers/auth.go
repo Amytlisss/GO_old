@@ -3,10 +3,10 @@ package handlers
 import (
 	"html/template"
 	"net/http"
-	"priyutik/priyutik/internal/repository"
+	"priyutik/internal/repository"
 	"time"
 
-	"github.com/Amytlisss/GO_old/priyutik/internal/models"
+	"priyutik/internal/models"
 
 	"github.com/gorilla/sessions"
 	"golang.org/x/crypto/bcrypt"

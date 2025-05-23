@@ -5,9 +5,10 @@ import (
 	"html/template"
 	"net/http"
 
-	"github.com/Amytlisss/GO_old/priyutik/internal/config"
-	"github.com/Amytlisss/GO_old/priyutik/internal/models"
-	"github.com/Amytlisss/GO_old/priyutik/internal/repository"
+	"priyutik/internal/config"
+	"priyutik/internal/models"
+
+	"priyutik/internal/repository"
 
 	"github.com/gorilla/mux"
 	"github.com/gorilla/sessions"

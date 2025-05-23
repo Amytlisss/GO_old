@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/Amytlisss/GO_old/priyutik/internal/models"
+	"priyutik/internal/models"
 )
 
 func (h *Handlers) MeetingsPage(w http.ResponseWriter, r *http.Request) {
