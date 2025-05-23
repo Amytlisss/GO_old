@@ -2,6 +2,7 @@ package app
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
 	"net/http"
 	"priyutik/internal/config"
@@ -22,20 +23,25 @@ type Application struct {
 var db *sql.DB
 
 func New(cfg *config.Config) (*Application, error) {
-	var err error
-	connStr := "user=postgres password=0000 dbname=priyutik sslmode=disable"
-	db, err = sql.Open("postgres", connStr)
+	connStr := fmt.Sprintf("user=%s password=%s dbname=%s sslmode=%s",
+		cfg.DB.User, cfg.DB.Password, cfg.DB.Name, cfg.DB.SSLMode)
+
+	db, err := sql.Open("postgres", connStr)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to connect to database: %w", err)
 	}
 
 	if err := db.Ping(); err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to ping database: %w", err)
+	}
+
+	// Инициализация репозитория и создание таблиц
+	repo := repository.NewRepository(db)
+	if err := repo.InitDB(); err != nil {
+		return nil, fmt.Errorf("failed to initialize database: %w", err)
 	}
 
 	store := sessions.NewCookieStore([]byte(cfg.Session.SecretKey))
-
-	repo := repository.NewRepository(db)
 	handlers := handlers.NewHandlers(repo, store, cfg)
 
 	return &Application{

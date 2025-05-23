@@ -16,6 +16,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("Failed to create app: %v", err)
 	}
+	defer application.Close()
 
 	if err := application.Run(); err != nil {
 		log.Fatalf("Application error: %v", err)
