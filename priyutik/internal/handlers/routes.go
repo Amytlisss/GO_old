@@ -48,7 +48,6 @@ func (h *Handlers) RegisterRoutes() {
 	r.Handle("/admin", h.Authenticate(h.AdminOnly(http.HandlerFunc(h.AdminPage)))).Methods("GET")
 	r.Handle("/animals/edit", h.Authenticate(h.AdminOnly(http.HandlerFunc(h.EditAnimalPage)))).Methods("GET")
 	r.Handle("/animals/edit", h.Authenticate(h.AdminOnly(http.HandlerFunc(h.EditAnimal)))).Methods("POST")
-	r.Handle("/animals/create", h.Authenticate(h.AdminOnly(http.HandlerFunc(h.CreateAnimal)))).Methods("GET", "POST")
 	r.Handle("/animals/delete", h.Authenticate(h.AdminOnly(http.HandlerFunc(h.DeleteAnimal)))).Methods("GET", "POST")
 	r.Handle("/admin/animals/add", h.Authenticate(h.AdminOnly(http.HandlerFunc(h.AddAnimal)))).Methods("GET", "POST")
 	http.Handle("/", r)

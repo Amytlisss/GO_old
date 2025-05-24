@@ -116,41 +116,6 @@ func (h *Handlers) EditAnimal(w http.ResponseWriter, r *http.Request) {
 	h.RenderTemplate(w, "edit_animal.html", data)
 }
 
-func (h *Handlers) CreateAnimal(w http.ResponseWriter, r *http.Request) {
-	user, ok := h.GetUserFromSession(w, r)
-	if !ok || user.Role != "admin" {
-		http.Redirect(w, r, "/login", http.StatusFound)
-		return
-	}
-
-	if r.Method == http.MethodPost {
-		age, err := strconv.Atoi(r.FormValue("age"))
-		if err != nil {
-			h.ErrorResponse(w, "Неверный возраст", http.StatusBadRequest)
-			return
-		}
-
-		available := r.FormValue("available") == "on"
-
-		animal := models.Animal{
-			Name:        r.FormValue("name"),
-			Type:        r.FormValue("type"),
-			Breed:       r.FormValue("breed"),
-			Age:         age,
-			Description: r.FormValue("description"),
-			ImageURL:    r.FormValue("image_url"),
-			Available:   available,
-		}
-
-		if err := h.repo.CreateAnimal(&animal); err != nil {
-			h.ErrorResponse(w, "Ошибка при создании животного", http.StatusInternalServerError)
-			return
-		}
-
-		http.Redirect(w, r, "/admin", http.StatusFound)
-	}
-}
-
 func (h *Handlers) AddAnimal(w http.ResponseWriter, r *http.Request) {
 	user, _ := h.GetUserFromSession(w, r)
 
