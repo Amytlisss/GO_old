@@ -23,10 +23,7 @@ type Application struct {
 var db *sql.DB
 
 func New(cfg *config.Config) (*Application, error) {
-	connStr := fmt.Sprintf("user=%s password=%s dbname=%s sslmode=%s",
-		cfg.DB.User, cfg.DB.Password, cfg.DB.Name, cfg.DB.SSLMode)
-
-	db, err := sql.Open("postgres", connStr)
+	db, err := sql.Open("postgres", cfg.DB.URI)
 	if err != nil {
 		return nil, fmt.Errorf("failed to connect to database: %w", err)
 	}
@@ -52,6 +49,7 @@ func New(cfg *config.Config) (*Application, error) {
 	}, nil
 }
 
+// Остальной код остается без изменений
 func (a *Application) Run() error {
 	a.Handlers.RegisterRoutes()
 	log.Printf("Starting server on :%s", a.Config.Server.Port)

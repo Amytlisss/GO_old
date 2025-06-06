@@ -2,12 +2,7 @@ package config
 
 type Config struct {
 	DB struct {
-		Host     string
-		Port     string
-		User     string
-		Password string
-		Name     string
-		SSLMode  string
+		URI string // Добавляем поле для URI подключения
 	}
 	Server struct {
 		Port string
@@ -21,12 +16,7 @@ func Load() (*Config, error) {
 	cfg := &Config{}
 
 	// Database configuration
-	cfg.DB.Host = "localhost"
-	cfg.DB.Port = "5432"
-	cfg.DB.User = "postgres"
-	cfg.DB.Password = "0000"
-	cfg.DB.Name = "priyutik"
-	cfg.DB.SSLMode = "disable"
+	cfg.DB.URI = "postgresql://postgres:0000@localhost:5432/priyutik?sslmode=disable"
 
 	// Server configuration
 	cfg.Server.Port = "8080"
