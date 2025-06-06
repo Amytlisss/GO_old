@@ -19,10 +19,24 @@ func (r *MeetingRepo) CreateMeeting(userID int, date time.Time) error {
 }
 
 func (r *MeetingRepo) GetMeetings(userID int) ([]models.Meeting, error) {
-	rows, err := r.db.Query(
-		"SELECT id, user_id, date, cancelled, created_at FROM meetings WHERE user_id = $1",
-		userID,
-	)
+	rows, err := r.db.Query(`
+        SELECT 
+            m.id, 
+            m.user_id, 
+            m.date, 
+            m.cancelled, 
+            m.created_at,
+            u.name,
+            u.phone
+        FROM 
+            meetings m
+        JOIN 
+            users u ON m.user_id = u.id
+        WHERE 
+            m.user_id = $1
+        ORDER BY
+            m.date ASC
+    `, userID)
 	if err != nil {
 		return nil, err
 	}
@@ -31,9 +45,12 @@ func (r *MeetingRepo) GetMeetings(userID int) ([]models.Meeting, error) {
 	var meetings []models.Meeting
 	for rows.Next() {
 		var m models.Meeting
-		if err := rows.Scan(&m.ID, &m.UserID, &m.Date, &m.Cancelled, &m.CreatedAt); err != nil {
+		var userName, userPhone sql.NullString
+		if err := rows.Scan(&m.ID, &m.UserID, &m.Date, &m.Cancelled, &m.CreatedAt, &userName, &userPhone); err != nil {
 			return nil, err
 		}
+		m.UserName = userName.String
+		m.UserPhone = userPhone.String
 		meetings = append(meetings, m)
 	}
 	return meetings, nil
