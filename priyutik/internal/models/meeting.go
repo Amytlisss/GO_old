@@ -8,4 +8,6 @@ type Meeting struct {
 	Date      time.Time
 	Cancelled bool
 	CreatedAt time.Time
+	UserName  string
+	UserPhone string
 }

@@ -16,19 +16,7 @@ func (h *Handlers) AdminPage(w http.ResponseWriter, r *http.Request) {
 
 	dateFilter := r.URL.Query().Get("date")
 
-	var meetings []models.Meeting
-	var err error
-
-	if dateFilter != "" {
-		date, err := time.Parse("2006-01-02", dateFilter)
-		if err != nil {
-			h.ErrorResponse(w, "Неверный формат даты", http.StatusBadRequest)
-			return
-		}
-		meetings, err = h.repo.GetMeetingsByDate(date)
-	} else {
-		meetings, err = h.repo.GetAllMeetings()
-	}
+	meetings, err := h.repo.GetFilteredMeetings(dateFilter)
 	if err != nil {
 		h.ErrorResponse(w, err, http.StatusInternalServerError)
 		return
@@ -44,11 +32,13 @@ func (h *Handlers) AdminPage(w http.ResponseWriter, r *http.Request) {
 		User       models.User
 		Meetings   []models.Meeting
 		Animals    []models.Animal
+		Now        time.Time
 		DateFilter string
 	}{
 		User:       user,
 		Meetings:   meetings,
 		Animals:    animals,
+		Now:        time.Now(),
 		DateFilter: dateFilter,
 	}
 
