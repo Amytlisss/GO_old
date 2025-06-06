@@ -15,13 +15,13 @@
 
 <div class="container py-4">
     <h1>Добавить новое животное</h1>
-    
-    <form method="post" enctype="multipart/form-data">
+
+    <form method="post"> 
         <div class="mb-3">
             <label class="form-label">Имя:</label>
             <input type="text" name="name" class="form-control" required>
         </div>
-        
+
         <div class="mb-3">
             <label class="form-label">Тип:</label>
             <select name="type" class="form-select" required>
@@ -30,32 +30,32 @@
                 <option value="other">Другое</option>
             </select>
         </div>
-        
+
         <div class="mb-3">
             <label class="form-label">Порода:</label>
             <input type="text" name="breed" class="form-control" required>
         </div>
-        
+
         <div class="mb-3">
             <label class="form-label">Возраст:</label>
             <input type="number" name="age" class="form-control" required>
         </div>
-        
+
         <div class="mb-3">
             <label class="form-label">Описание:</label>
             <textarea name="description" class="form-control" rows="3" required></textarea>
         </div>
-        
+
         <div class="mb-3">
             <label class="form-label">Ссылка на фото:</label>
             <input type="url" name="image_url" class="form-control" required>
         </div>
-        
+
         <div class="mb-3 form-check">
             <input type="checkbox" name="available" class="form-check-input" checked>
             <label class="form-check-label">Доступно для усыновления</label>
         </div>
-        
+
         <button type="submit" class="btn btn-primary">Добавить</button>
         <a href="/admin" class="btn btn-secondary">Отмена</a>
     </form>

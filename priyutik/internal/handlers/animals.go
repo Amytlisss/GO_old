@@ -120,8 +120,17 @@ func (h *Handlers) AddAnimal(w http.ResponseWriter, r *http.Request) {
 	user, _ := h.GetUserFromSession(w, r)
 
 	if r.Method == http.MethodPost {
-		r.ParseForm()
-		age, _ := strconv.Atoi(r.FormValue("age"))
+		err := r.ParseForm()
+		if err != nil {
+			h.ErrorResponse(w, "Ошибка при парсинге формы", http.StatusBadRequest)
+			return
+		}
+
+		age, err := strconv.Atoi(r.FormValue("age"))
+		if err != nil {
+			h.ErrorResponse(w, "Неверный возраст", http.StatusBadRequest)
+			return
+		}
 		available := r.FormValue("available") == "on"
 
 		animal := models.Animal{
